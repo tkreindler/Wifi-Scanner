@@ -1,3 +1,7 @@
+## Disclaimer
+
+It's vibecoded, but it works well! Anyways, here's the AI slop:
+
 # WiFi Scanner
 
 A small Windows and macOS Wi-Fi scanner focused on showing channel overlap and congestion across **2.4 GHz**, **5 GHz / DFS**, and **6 GHz / Wi-Fi 6E**.
