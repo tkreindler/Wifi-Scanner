@@ -32,6 +32,13 @@ jobs:
         run: |
           set -euo pipefail
 
+          branch_sha="$(gh api "repos/${REPO}/branches/${BRANCH}" --jq '.commit.sha')"
+          if [[ "$branch_sha" != "$SHA" ]]; then
+            echo "Skipping stale workflow run for $SHA; current $BRANCH is $branch_sha."
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
           find_run() {
             local workflow="$1"
             gh api --method GET "repos/${REPO}/actions/workflows/${workflow}/runs" \
