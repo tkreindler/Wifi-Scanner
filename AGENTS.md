@@ -352,6 +352,23 @@ What it does:
 7. Creates `WiFiScanner-macos-arm64.dmg` from the signed app bundle, an `/Applications` shortcut, and first-run instructions.
 8. Uploads the DMG as `WiFiScanner-macos-arm64-dmg`.
 
+## GitHub Actions release pipeline
+
+Workflow:
+
+```text
+.github/workflows/release.yml
+```
+
+It runs when either the Windows EXE or macOS APP workflow completes successfully on `master`.
+
+What it does:
+
+1. Looks up successful Windows and macOS workflow runs for the same commit SHA.
+2. Exits without publishing if the matching platform build is not ready yet.
+3. Downloads `WiFiScanner.exe` and `WiFiScanner-macos-arm64.dmg`.
+4. Creates a release tagged `build-<12-char-sha>` with both files attached.
+
 ## GitHub Actions Windows EXE pipeline
 
 Workflow:
