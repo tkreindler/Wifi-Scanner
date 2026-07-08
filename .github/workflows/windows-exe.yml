@@ -30,11 +30,8 @@ jobs:
       - name: Install frontend dependencies
         run: npm ci --prefix frontend
 
-      - name: Install Tauri CLI
-        run: cargo install tauri-cli --locked
-
       - name: Build standalone app
-        run: cargo tauri build --no-bundle
+        run: npx --yes @tauri-apps/cli@2 build --no-bundle
 
       - name: Rename executable
         shell: pwsh

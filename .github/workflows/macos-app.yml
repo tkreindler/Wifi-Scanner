@@ -30,11 +30,8 @@ jobs:
       - name: Install frontend dependencies
         run: npm ci --prefix frontend
 
-      - name: Install Tauri CLI
-        run: cargo install tauri-cli --locked
-
       - name: Build Apple Silicon app bundle
-        run: cargo tauri build --target aarch64-apple-darwin --bundles app --no-sign --ci
+        run: npx --yes @tauri-apps/cli@2 build --target aarch64-apple-darwin --bundles app --no-sign --ci
 
       - name: Ad-hoc sign app bundle
         run: |

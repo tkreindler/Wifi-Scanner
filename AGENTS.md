@@ -346,11 +346,10 @@ What it does:
 1. Checks out the repo on `macos-latest`.
 2. Installs stable Rust with `aarch64-apple-darwin`.
 3. Installs Node 20 and `npm ci --prefix frontend`.
-4. Installs `tauri-cli`.
-5. Runs `cargo tauri build --target aarch64-apple-darwin --bundles app --no-sign --ci`.
-6. Ad-hoc signs the app bundle with `codesign --force --deep --sign -`.
-7. Creates `WiFiScanner-macos-arm64.dmg` from the signed app bundle, an `/Applications` shortcut, and first-run instructions.
-8. Uploads the DMG as `WiFiScanner-macos-arm64-dmg`.
+4. Runs `npx --yes @tauri-apps/cli@2 build --target aarch64-apple-darwin --bundles app --no-sign --ci`.
+5. Ad-hoc signs the app bundle with `codesign --force --deep --sign -`.
+6. Creates `WiFiScanner-macos-arm64.dmg` from the signed app bundle, an `/Applications` shortcut, and first-run instructions.
+7. Uploads the DMG as `WiFiScanner-macos-arm64-dmg`.
 
 ## GitHub Actions release pipeline
 
@@ -384,8 +383,7 @@ What it does:
 1. Checks out the repo on `windows-latest`.
 2. Installs stable Rust with `x86_64-pc-windows-msvc`.
 3. Installs Node 20 and `npm ci --prefix frontend`.
-4. Installs `tauri-cli`.
-5. Runs `cargo tauri build --no-bundle`.
+4. Runs `npx --yes @tauri-apps/cli@2 build --no-bundle`.
 6. Copies `target/release/wifi-scanner-app.exe` to `artifacts/WiFiScanner.exe`.
 7. Uploads `WiFiScanner.exe` as the artifact `WiFiScanner-windows-x64-exe`.
 
