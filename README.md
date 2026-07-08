@@ -4,6 +4,10 @@ It's vibecoded, but it works well! Anyways, here's the AI slop:
 
 # WiFi Scanner
 
+<p align="center">
+  <img src="src-tauri/icons/icon.png" alt="WiFi Scanner app icon" width="128" height="128">
+</p>
+
 A small Windows and macOS Wi-Fi scanner focused on showing channel overlap and congestion across **2.4 GHz**, **5 GHz / DFS**, and **6 GHz / Wi-Fi 6E**.
 
 ![Spectrum overview](docs/images/spectrum-overview.png)
