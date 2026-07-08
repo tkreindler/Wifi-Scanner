@@ -1,0 +1,19 @@
+{
+  "name": "wifi-scanner-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "test:ui": "playwright test",
+    "shot": "node shot.cjs"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.7"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.49.1",
+    "vite": "^5.4.11"
+  }
+}

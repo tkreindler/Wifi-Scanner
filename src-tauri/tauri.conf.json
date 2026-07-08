@@ -1,0 +1,27 @@
+{
+  "$schema": "https://schema.tauri.app/config/2",
+  "productName": "WiFi Scanner",
+  "version": "0.1.0",
+  "identifier": "app.wifiscanner.desktop",
+  "build": {
+    "frontendDist": "../frontend/dist",
+    "devUrl": "http://localhost:5173",
+    "beforeDevCommand": "npm --prefix ../frontend run dev",
+    "beforeBuildCommand": "npm --prefix ../frontend run build"
+  },
+  "app": {
+    "withGlobalTauri": true,
+    "windows": [
+      { "title": "WiFi Scanner", "width": 1000, "height": 700 }
+    ],
+    "security": { "csp": null }
+  },
+  "bundle": {
+    "active": true,
+    "targets": "all",
+    "icon": ["icons/icon.ico"],
+    "macOS": {
+      "infoPlist": "Info.plist"
+    }
+  }
+}

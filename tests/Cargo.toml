@@ -1,0 +1,14 @@
+[package]
+name = "wifi-tests"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+publish = false
+
+[dependencies]
+wifi-core = { path = "../crates/wifi-core" }
+serde_json = { workspace = true }
+
+[[bin]]
+name = "scan-demo"
+path = "src/main.rs"

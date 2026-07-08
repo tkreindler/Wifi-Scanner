@@ -1,0 +1,21 @@
+:root { color-scheme: dark; font-family: system-ui, sans-serif; }
+body { margin: 0; background: #14171c; color: #e6e9ef; }
+header { display: flex; justify-content: space-between; align-items: center; padding: .7rem 1rem; background:#1c2128; user-select:none; }
+h1 { font-size: 1rem; margin: 0; }
+.bar { display:flex; gap:.6rem; align-items:center; height:100%; }
+#iface { color:#9aa4b2; font-size:.8rem; }
+button { background:#2f81f7; color:#fff; border:0; padding:.4rem .9rem; border-radius:6px; cursor:pointer; display:flex; align-items:center; gap:.4rem; }
+button:disabled { opacity:.7; cursor:default; }
+.spin { width:13px; height:13px; border:2px solid rgba(255,255,255,.4); border-top-color:#fff; border-radius:50%; animation:s .7s linear infinite; }
+@keyframes s { to { transform:rotate(360deg); } }
+nav { display:flex; gap:.5rem; padding:.6rem 1rem; }
+.chip { padding:.2rem .6rem; border-radius:999px; background:#222a33; font-size:.8rem; }
+.chip.unsupported { color:#8b949e; background:#1b2028; }
+#notice { margin:.75rem 1rem 0; padding:.55rem .75rem; border:1px solid #8a6d1d; border-radius:6px; background:#2a2111; color:#ffd479; font-size:.85rem; }
+main { padding:1rem 1.5rem; display:flex; flex-direction:column; gap:1rem; }
+section { width:100%; }
+section h2 { margin:.2rem 0 .4rem; font-size:1rem; }
+.spec { position:relative; width:100%; height:230px; background:#11141a; border-radius:6px; }
+.spec[data-note]::after { content:attr(data-note); position:absolute; inset:0; display:grid; place-items:center; color:#8b949e; font-size:.95rem; pointer-events:none; }
+table { width:100%; border-collapse:collapse; font-size:.85rem; max-height:240px; overflow:auto; display:block; }
+th,td { text-align:left; padding:.3rem .5rem; border-bottom:1px solid #2a313a; }

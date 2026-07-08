@@ -1,0 +1,79 @@
+name: macOS APP
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [master]
+    tags: ["v*"]
+
+jobs:
+  build-macos-app:
+    name: Build macOS APP
+    runs-on: macos-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Rust
+        uses: dtolnay/rust-toolchain@stable
+        with:
+          targets: aarch64-apple-darwin
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Install frontend dependencies
+        run: npm ci --prefix frontend
+
+      - name: Install Tauri CLI
+        run: cargo install tauri-cli --locked
+
+      - name: Build Apple Silicon app bundle
+        run: cargo tauri build --target aarch64-apple-darwin --bundles app --no-sign --ci
+
+      - name: Ad-hoc sign app bundle
+        run: |
+          set -euo pipefail
+          app_path="$(find target -type d -path '*/release/bundle/macos/WiFi Scanner.app' | head -n 1)"
+          test -n "$app_path"
+          codesign --force --deep --sign - "$app_path"
+          codesign --verify --deep --strict --verbose=2 "$app_path"
+
+      - name: Package DMG
+        run: |
+          set -euo pipefail
+          mkdir -p artifacts
+          app_path="$(find target -type d -path '*/release/bundle/macos/WiFi Scanner.app' | head -n 1)"
+          test -n "$app_path"
+          dist_dir="artifacts/dmg-root"
+          rm -rf "$dist_dir"
+          mkdir -p "$dist_dir"
+          ditto "$app_path" "$dist_dir/WiFi Scanner.app"
+          ln -s /Applications "$dist_dir/Applications"
+          cat > "$dist_dir/README-macOS.txt" <<'EOF'
+          WiFi Scanner for macOS Apple Silicon
+
+          To install, drag "WiFi Scanner.app" onto the Applications shortcut.
+
+          Apple has not reviewed this app, so macOS may block the first launch.
+          If double-clicking the app does not show an Open button:
+
+          1. Try opening the app once from the DMG.
+          2. Open System Settings > Privacy & Security.
+          3. Scroll down and click "Open Anyway" for WiFi Scanner.
+          4. Confirm "Open" in the follow-up dialog.
+
+          After that first approval, the app should open normally.
+          EOF
+          hdiutil create -volname "WiFi Scanner" -srcfolder "$dist_dir" -ov -format UDZO artifacts/WiFiScanner-macos-arm64.dmg
+
+      - name: Upload DMG
+        uses: actions/upload-artifact@v4
+        with:
+          name: WiFiScanner-macos-arm64-dmg
+          path: artifacts/WiFiScanner-macos-arm64.dmg

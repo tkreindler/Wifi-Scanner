@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WiFi Scanner</title>
+    <link rel="stylesheet" href="/src/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>WiFi Scanner</h1>
+      <div class="bar">
+        <span id="iface" data-test="iface">—</span>
+        <button id="scan" data-test="scan"><span class="spin" hidden></span><span class="lbl">Scan</span></button>
+      </div>
+    </header>
+    <div id="notice" role="status" hidden></div>
+    <nav id="bands"></nav>
+    <main>
+      <section><h2>2.4 GHz</h2><div class="spec"><canvas id="spec24" data-test="spec24"></canvas></div></section>
+      <section><h2>5 GHz (incl. DFS)</h2><div class="spec"><canvas id="spec5" data-test="spec5"></canvas></div></section>
+      <section><h2>6 GHz</h2><div class="spec"><canvas id="spec6" data-test="spec6"></canvas></div></section>
+      <section>
+        <h2>Networks</h2>
+        <table data-test="aptable"><thead><tr><th>SSID</th><th>Ch</th><th>Width</th><th>RSSI</th><th>Util%</th><th>Band</th><th>DFS</th></tr></thead>
+        <tbody id="rows"></tbody></table>
+      </section>
+    </main>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
