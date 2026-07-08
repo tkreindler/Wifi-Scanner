@@ -60,13 +60,16 @@ jobs:
         if: steps.runs.outputs.ready == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
         run: |
           set -euo pipefail
           mkdir -p release-assets/windows release-assets/macos
           gh run download "${{ steps.runs.outputs.windows_run }}" \
+            --repo "$REPO" \
             --name WiFiScanner-windows-x64-exe \
             --dir release-assets/windows
           gh run download "${{ steps.runs.outputs.macos_run }}" \
+            --repo "$REPO" \
             --name WiFiScanner-macos-arm64-dmg \
             --dir release-assets/macos
 
@@ -74,13 +77,14 @@ jobs:
         if: steps.runs.outputs.ready == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
           SHA: ${{ github.event.workflow_run.head_sha }}
         run: |
           set -euo pipefail
           short_sha="${SHA:0:7}"
           tag="build-${SHA:0:12}"
 
-          if gh release view "$tag" >/dev/null 2>&1; then
+          if gh release view "$tag" --repo "$REPO" >/dev/null 2>&1; then
             echo "Release $tag already exists; skipping."
             exit 0
           fi
@@ -88,6 +92,7 @@ jobs:
           gh release create "$tag" \
             release-assets/windows/WiFiScanner.exe \
             release-assets/macos/WiFiScanner-macos-arm64.dmg \
+            --repo "$REPO" \
             --target "$SHA" \
             --title "WiFi Scanner ${short_sha}" \
             --notes "Automated build for commit ${SHA}."
